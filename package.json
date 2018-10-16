@@ -1,0 +1,18 @@
+{
+  "name": "electron_tgp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^3.0.4"
+  },
+  "dependencies": {
+    "git": "^0.1.5",
+    "jQuery": "^1.7.4"
+  }
+}
