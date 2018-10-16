@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "electron . --debug-brk=5858" ,
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

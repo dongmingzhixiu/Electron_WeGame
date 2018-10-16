@@ -50,108 +50,33 @@
 			</div>
 			<div class="e-centent" id="centent">
 				<div class="e-c-left">
-					<div>
+					<div class="e-c-game" title="We动态"  href="https://www.baidu.com/s?word=We动态">
 						<div class="e-c-l-first">
 							<div class="float"><div class="float">W</div><div class="float">We动态</div></div>
 							<div  class="float">BETA</div>
 						</div>
 					</div>
-					<div class="e-c-game-toolbar">
+					<div class="e-c-game-toolbar" title="英雄联盟" href="https://www.baidu.com/s?word=英雄联盟">
 						<div><img src="images/lol_client_logo.png" class="float"/><div class="float">英雄联盟</div></div>
 					</div>
-					<div class="e-c-game-toolbar">
-						<div><img src="images/lol_client_logo.png" class="float"/><div class="float">英雄联盟</div></div>
+					<div class="e-c-game-toolbar" title="穿越火线" href="https://www.baidu.com/s?word=穿越火线">
+						<div><img src="images/cf-logo.png" class="float"/><div class="float">穿越火线</div></div>
 					</div>
 					<div class="e-c-l-toolbar">
 						<div></div>
 					</div>
 				</div>
-				<div class="e-c-right"></div>
+				<div class="e-c-right">
+					<webview  class="frame" id="frame"></webview >
+				</div>
 			</div>
 		</div>
     </body>
-    <script>window.$= window.jQuery = require("jquery");</script>
-    <script>
-		$(function(){
-			const ipc = require('electron').ipcRenderer
-			init();
-			function init(){
-				//调用后台执行最大最小 系统菜单系统事件
-				$("[title='关闭']").click(function(){
-					ipc.send('closeForm');
-				});
-				$("[title='最大化']").click(function(){
-					var title=$(this).attr("title");
-					if(title=="最大化"){
-						changeContent();
-						$(this).attr("title","窗口化");
-						$(this).css({"background":"url('images/mainframe_icon.png') -75px  -123px","-webkit-app-region":"no-drag"});
-						ipc.send('maxForm');
-					}else{
-						changeContent();
-						$(this).attr("title","最大化");
-						$(this).css({"background":"url('images/mainframe_icon.png') 0px -20px","-webkit-app-region":"no-drag"});
-						ipc.send('restoreForm');
-					}
-				});
-				//最大窗口化鼠标访问改变图片
-				$("[title='最大化']").mouseenter(function () { 
-					var title=$(this).attr("title");
-					if(title=="最大化"){
-						$(this).css({"background":"url('images/mainframe_icon.png') -23px -20px","-webkit-app-region":"no-drag"});
-					}else{
-						$(this).css({"background":"url('images/mainframe_icon.png') -96px  -123px","-webkit-app-region":"no-drag"});
-					}
-				});
-				$("[title='最大化']").mouseleave(function () { 
-					var title=$(this).attr("title");
-					if(title=="最大化"){
-						$(this).css("background","url('images/mainframe_icon.png') 0px -20px");
-					}else{
-						$(this).css("background","url('images/mainframe_icon.png') -75px  -123px");
-					}
-				});
-
-				$("[title='最小化']").click(function(){
-					ipc.send('minForm');
-				});
-				$("[title='系统菜单']").click(function(){
-					ipc.send('menuForm');
-				});
-
-				//顶部中间按钮样式事件
-				$(".e-h-center>div>div").click(function(){
-					$(".e-h-center-bottom").hide();
-					$(this).find(".e-h-center-bottom").show();
-					var id=$(this).attr("id");
-					$("#e-h-home").children().children().attr("class","e-h-home-no-visited");
-					$("#e-h-shop").children().children().attr("class","e-h-shop-no-visited");
-					$("#e-h-player").children().children().attr("class","e-h-player-no-visited");
-
-					if(id=="e-h-home"){
-						$("#e-h-home").children().children().attr("class","e-h-home-visited");
-					}else if(id=="e-h-shop"){
-						$("#e-h-shop").children().children().attr("class","e-h-shop-visited");
-					}else if(id=="e-h-player"){
-						$("#e-h-player").children().children().attr("class","e-h-player-visited");
-					}
-				});
-				
-			}
-			ipc.on('changeContent', function(event, message) {
-				changeContent();
-			});
-			//窗体大小改变事件
-			function changeContent(){
-				var currWin = require('electron').remote.getCurrentWindow();
-				var size=currWin.getSize();
-				if($(".e-h-right").find('[title="最大化"]').length>0){
-					ipc.send('setPosition',[screen.width,screen.height]);
-				}
-			}
-			setTimeout(function(){
-				changeContent();
-			},550);
-		});
-    </script>
+	<script>window.$= window.jQuery = require("jquery");</script>
+	<script type="text/javascript" src="js/jquery.tools.js"></script>
+	<script type="text/javascript" src="js/electron.tools.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+		
+	</script>
 </html>

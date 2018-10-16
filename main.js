@@ -1,6 +1,9 @@
 const {ipcMain, app, BrowserWindow } = require('electron');  //此种写反==》ipcMain=require('electron').ipcMain,app=require('electron').app,BrowserWindow=require('electron').BrowserWindow ;即获取对象的属性值
+// let {setUrl,setWebView}=require("./apps/js/setUrl.js");
 
 let win = null;
+let parentWin;
+
 app.on("ready", createForm);
 
 //定义初始化窗口大小
@@ -10,37 +13,38 @@ function createForm() {
     win = new BrowserWindow({
         width: initW,   //宽度
         height: initH,  //高度
-        frame: false,   //无边框
         center:true,    //居中
         transparent: true,  //透明
+        frame: false,   //无边框
         minWidth: 1100, //最小宽度
         minHeight: 560, //最大宽度
     });
-
     win.loadURL(__dirname + "/apps/index.html");
     win.show();
-    win.minimize();
-    win.openDevTools();
+    // win.openDevTools();
+    openForm();
 }
-//监听关闭事件
-ipcMain.on('closeForm', ()=>{
-  win.close();
-});
-//监听最大化事件
-ipcMain.on("maxForm",()=>{
-  win.webContents.send('changeContent');
-  win.maximize(); 
-});
-//监听窗口化事件
-ipcMain.on("restoreForm",()=>{
-  win.setSize(initW,initH);
-  win.webContents.send('changeContent');
-});
-//监听最小化事件
-ipcMain.on("minForm",()=>{
-  win.minimize();
-});
-//监听设置窗口位置
-ipcMain.on("setPosition",(event,args)=>{
-  win.setPosition((args[0]-1280)/2,(args[1]-830)/2);
+
+var openFile=null;
+let openFileUrl=null;
+var contents=null;
+function openForm(){
+    openFile=new BrowserWindow({
+        width: initW,   //宽度
+        height: initH,  //高度
+        center:true,    //居中
+        transparent: true,  //透明
+        frame: false,   //无边框
+        minWidth: 1100, //最小宽度
+        minHeight: 560, //最大宽度
+    });
+    openFile.loadURL(__dirname + "/apps/htmls/system/openFile.html");
+    openFile.minimize();
+    openFile.openDevTools();
+}
+
+ipcMain.on("openForm",(event,url)=>{
+    openFileUrl=url;
+    openFile.show();
+    openFile.send("setUrl",openFileUrl);
 });
