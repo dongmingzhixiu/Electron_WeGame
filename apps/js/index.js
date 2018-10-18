@@ -105,6 +105,12 @@ $(".e-c-left>div").click(function(){
     webOpenToForm("#frame",function(url){
         openFormToUrl(url);
     });
+    webOpenToForm("#shop",function(url){
+        openFormToUrl(url);
+    });
+    webOpenToForm("#player",function(url){
+        openFormToUrl(url);
+    });
 });
 
 

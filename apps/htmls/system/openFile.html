@@ -4,76 +4,171 @@
         <title>TGP游戏盒子</title>
         <meta charset="utf-8" />
 		<link href="../../css/main.css" rel="stylesheet" type="text/css">
+		<link href="../../css/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
 		<style>
+			.e-head {
+				color: var(--color);
+				height: 35px;
+				width: 100%;
+				background: url(../../../apps/images/e-head.png);
+				user-select: none;
+				box-shadow: 0px 1px #c1990f8c;
+				background-size: 100% 80px;
+				-webkit-app-region: drag;
+			}
 			.e-head>.e-h-center>div {
 				width: 100%;
-				height: 80px;
+				height: 35px;
 				margin: 0px auto;
-				padding: 35px 0px;
 			}
-			.e-head>.e-h-center>div >input{
-				width: calc(100% + 100px);
+			.e-head>.e-h-center>div >input {
+				width:calc(100% - 100px - 50px ) ;
 				padding: 2px 5px;
-				height: 23px;
-				background: #ccc;
-				border: 1px solid #ccc;
+				margin: 5px;
+    			height: 20px;
+				background: #fff;
+    			border: 1px solid #cac9c9;
 				border-radius: 5px;
+			}
+			.e-head>.e-h-left {
+				width: 35px;
+				height: 35px;
 			}
 			.e-centent>.e-c-right {
 				color: var(--color);
-				height: 100%;
+				height: 35px;
 				width: 100%;
+			}
+			.e-head>.e-h-center {
+				width: 100vw;
+				height: 100%;
+				background: white;
+			}
+			.e-head>.e-h-right {
+				width: 56px;
+				height: 35px;
+				right: 0px;
+				position: fixed;
+				margin-top: 3px;
+    			margin-right: 3px;
+			}
+			
+			.e-head>.e-h-center>div>div {
+				width: 120px;
+				height: 35px;
+				float: left;
+			}
+			#tabList{   
+				float: left;
+				position: fixed;
+				padding: 5px 0px 0px 36px;
+			}
+			.refresh{
+				-webkit-app-region:no-drag; width: 33px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png)  4px 34px; background-size: 96px;
+			}
+			.forward{
+				-webkit-app-region:no-drag; width: 34px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png) 3px 74px; background-size: 96px;				
+			}
+			.back{
+				-webkit-app-region:no-drag; width: 34px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png) 3px 3px; background-size: 96px;				
+			}
+
+			.refresh:hover{
+				-webkit-app-region:no-drag; width: 33px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png)  -27px 34px; background-size: 96px;
+			}
+			.forward:hover{
+				-webkit-app-region:no-drag; width: 34px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png) -27px 74px; background-size: 96px;				
+			}
+			.back:hover{
+				-webkit-app-region:no-drag; width: 34px;  height: 34px;  background: url(../../../apps/images/left-head-btn.png) -26px 3px; background-size: 96px;				
+			}
+			.tab>div>span{padding: 0px 3px;}
+			.tab {
+				-webkit-app-region:no-drag;
+				border: 1px solid #e8e8e8;
+				padding: 2px 10px 2px 2px;
+				height: 25px;
+				background-color: #cecece;
+				box-shadow: 1px -1px #292828;
+				border-bottom: 0px;
+			}
+			.tab:hover {
+				border: 1px solid #e8e8e8;
+				padding: 2px 10px 2px 2px;
+				height: 26px;
+				background-color: #fdfdfd;
+				box-shadow: 1px -1px #292828;
+				border-bottom: 0px;
+				padding-top:1px;
+				border-top:1px solid orange;
+			}
+			.tab-selected{
+				-webkit-app-region:no-drag;
+				border: 1px solid #e8e8e8;
+				padding: 2px 10px 2px 2px;
+				height: 25px;
+				background-color: #fdfdfd;
+				box-shadow: 1px -1px #292828;
+				border-bottom: 0px;
+			}
+			.tabList{
+				width: 100vw;
+				background:#ccc;
+			}
+			.tab>div{
+				padding-top: 4px;
+			}
+			/* .close-tab{
+
+			} */
+			#addTab{
+			    float: right;
+				border: 1px solid white;
+				padding: 4px 0px 0px 4px;
+				background-color: white;
+				height: 25px;
+				width: 25px;
+				-webkit-app-region:no-drag;
 			}
 		</style>
     </head>
     <body style="margin:0px;padding:0px;">
-		<div style="-webkit-app-region:no-drag;border-radius: 5px;">
+		<div style="-webkit-app-region:no-drag;border-radius: 0px;">
 			<div class="e-head">
 				<div class="e-h-left">
 					<div>
 						<div class="logo"></div>
-						<div class="logo-title">Tencent&nbsp;&nbsp;weGame</div>
 					</div>
-					<div>
-						<div style="-webkit-app-region:no-drag;" class="back" title="后退"></div>
-						<div style="-webkit-app-region:no-drag;" class="refresh" title="刷新"></div>
+					
+				</div>
+				<div id="tabList">
+					<div id="addTab" class="tab" style="float:right;">
+						<div style="padding: 2px 5px;">+</div>
 					</div>
 				</div>
 				<div class="e-h-center">
 					<div>
-						<input style="-webkit-app-region:no-drag;" id="searchBox"  type="text">
+						<div class="float">
+							<div style="-webkit-app-region:no-drag;height: 35px;float: left;padding:0px 2px;" class="back" title="后退"></div>
+							<div style="-webkit-app-region:no-drag;height: 35px;float: left;padding:0px 2px;" class="forward" title="前进"></div>
+							<div style="-webkit-app-region:no-drag;height: 35px;float: left;padding:0px 2px;" class="refresh" title="刷新"></div>
+						</div>
+						<input style="-webkit-app-region:no-drag;float:left;border-radius: 0px;" id="searchBox"  type="text">
 					</div>
 				</div>
 				<div class="e-h-right">
 					<div>
 						<div title="关闭" class="close" id="closeBtn"></div>
-						<div title="最大化"  id="maxBtn" style="-webkit-app-region:no-drag"></div>                        
+						<!-- <div title="最大化"  id="maxBtn" style="-webkit-app-region:no-drag"></div>                         -->
 						<div title="最小化"  id="minBtn"></div>                        
-						<div title="系统菜单"  id="menuBtn"></div>
+						<!--<div title="系统菜单"  id="menuBtn"></div> -->
 					</div>
 					
 				</div>
 			</div>
 			<div class="e-centent" id="centent">
-				<!-- <div class="e-c-left">
-					<div class="e-c-game" title="We动态"  href="https://www.baidu.com/s?word=We动态">
-						<div class="e-c-l-first">
-							<div class="float"><div class="float">W</div><div class="float">We动态</div></div>
-							<div  class="float">BETA</div>
-						</div>
-					</div>
-					<div class="e-c-game-toolbar" title="英雄联盟" href="https://www.baidu.com/s?word=英雄联盟">
-						<div><img src="../../images/lol_client_logo.png" class="float"/><div class="float">英雄联盟</div></div>
-					</div>
-					<div class="e-c-game-toolbar" title="穿越火线" href="https://www.baidu.com/s?word=穿越火线">
-						<div><img src="../../images/cf-logo.png" class="float"/><div class="float">穿越火线</div></div>
-					</div>
-					<div class="e-c-l-toolbar">
-						<div></div>
-					</div>
-				</div> -->
-				<div class="e-c-right">
-					<webview class="frame" id="frame2"></webview>
+				<div id="webList" class="e-c-right">
+					<webview class="frame" id="frame2" plugins></webview>
 				</div>
 			</div>
 		</div>
@@ -99,9 +194,6 @@
 				}
 			}
 		}
-		$(".refresh").click(function(){
-			var url=$("#searchBox").val();
-			$("webview:last").attr("src",url);
-		});
+
 	</script>
 </html>
