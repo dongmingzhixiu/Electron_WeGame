@@ -74,6 +74,26 @@ $(function(){
         }
     }
 
+    $(".refresh").click(function(){
+        var url=$("#searchBox").val();
+        if($(".tab").length<=0){
+            addWebView(url);
+            $("#searchBox").val(url);
+            return;
+        }
+        $("webview.selected").attr("src",url);
+    });
+
+    addWebView("http://www.baidu.com");
+
+
+    keyDown($("#searchBox")[0],function(){
+        var url=$("#searchBox").val();
+        url=url.indexOf("http")>=0?url:"http://"+url.replace(/^[^0-9a-zA-Z][//]{2}/g,"//");
+        $("#searchBox").val(url);
+        $("webview.selected").attr("src",url);
+    });
+
 });
 
 function setUrl(url){
@@ -101,8 +121,6 @@ $(".e-c-left>div").click(function(){
 var ipcRenderer = require('electron').ipcRenderer;
 		
 ipcRenderer.on('setUrl', (event,url)=>{
-    //debugger;
-    //setUrl(url)
     addWebView(url);
 });
 
@@ -137,8 +155,13 @@ function addWebView(url){
     });
 
     closeTab=function(guid){
+        var selectId=$(".selected").attr("id");
         $("#"+guid).remove();
         $("#tab_"+guid).remove();
+        if(guid==selectId){
+            $("webview:last").addClass("selected");
+            $(".tab:last").addClass("tab-selected");
+        }
     }
 
     checkDiv=function(doc,guid){
@@ -150,33 +173,35 @@ function addWebView(url){
         $("webview").removeClass("selected");
         $("#"+guid).addClass("selected").show();
         $("#tab_"+guid).addClass("tab-selected").show();
+        var src=$("#"+guid).attr("src");
+        $("#searchBox").val(src);
     }
 
     voiceChange=function(doc,guid){
-        var type= $(doc).attr("type");
+        var type= $(doc).parent().attr("type");
         var webView=function(id){return document.getElementById(id);};
         if(type=="on"){//关闭
             webView(guid).setAudioMuted(true);
-            $(doc).html("<i  onclick=\"voiceChange(this,'"+guid+"')\"  class='fa fa-volume-off'></i>");
-            $(doc).attr("type","off");
+            $(doc).removeClass("fa fa-volume-up");
+            $(doc).addClass("fa fa-volume-off");
+            $(doc).parent().attr("type","off");
         }else{//打开
             webView(guid).setAudioMuted(false);
-            $(doc).html("<i   onclick=\"voiceChange(this,'"+guid+"')\"  class='fa fa-volume-up'></i>");
-            $(doc).attr("type","on");
+            $(doc).removeClass("fa fa-volume-off");
+            $(doc).addClass("fa fa-volume-up");
+            $(doc).parent().attr("type","on");
         }
     }
 
-   
 }
-$(".refresh").click(function(){
-    var url=$("#searchBox").val();
-    if($(".tab").length<=0){
-        addWebView(url);
-        return;
+
+function keyDown(docs,callback) {
+    docs.onkeydown = function(e) {
+        if (!e) e = window.event; //火狐中是 window.event
+        if ((e.keyCode || e.which) == 13) {
+            if (typeof callback == "function") {
+                callback();
+            }
+        }
     }
-    $("webview:last").attr("src",url);
-});
-$("#addTab").click(function(){
-    addWebView("http://www.baidu.com");
-});
-$("#addTab").click();
+}
