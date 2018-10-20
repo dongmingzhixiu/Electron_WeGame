@@ -15,7 +15,7 @@ $(function(){
             // for(var i=0;i< webList.length;i++){
             //     webList[i].setAudioMuted(true);
             // }
-            formBtn('minForm');
+            formBtn('closeForm');
         });
         $("[title='最大化']").click(function(){
             var title=$(this).attr("title");
@@ -136,8 +136,8 @@ function addWebView(url){
     var web='<webview class="frame selected" id="'+guid+'" src="'+url+'" plugins></webview>';
     var tab='<div onclick="checkDiv(this,\''+guid+'\')" class="tab float tab-selected"  id="tab_'+guid+'" href="'+url+'"> <div><span>正在加载...</span><span type="on" class="voice"><i  onclick="voiceChange(this,\''+guid+'\')"  class="fa fa-volume-up"></i></span><span class="close-tab"></span><i  onclick="closeTab(\''+guid+'\')" class="fa fa-close"></i></div></div>';
     $("webview:not(.selected)").hide();
-    document.getElementById("webList").innerHTML+=web;
-    document.getElementById("tabList").innerHTML+=tab;
+    $("#webList").append(web);
+    $("#tabList").append(tab);
     $("#"+guid).show();
     //var webview = document.getElementById(guid);
 
@@ -158,9 +158,11 @@ function addWebView(url){
         var selectId=$(".selected").attr("id");
         $("#"+guid).remove();
         $("#tab_"+guid).remove();
-        if(guid==selectId){
+        if($(".selected").length<=0){
             $("webview:last").addClass("selected");
             $(".tab:last").addClass("tab-selected");
+            $(".selected").show();
+            $(".tab-selected").show();
         }
     }
 
