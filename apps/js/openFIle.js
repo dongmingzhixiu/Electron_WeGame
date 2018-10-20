@@ -134,7 +134,7 @@ function addWebView(url){
     $("webview").removeClass("selected");
     var guid=new Date().getTime();
     var web='<webview class="frame selected" id="'+guid+'" src="'+url+'" plugins></webview>';
-    var tab='<div onclick="checkDiv(this,\''+guid+'\')" class="tab float tab-selected"  id="tab_'+guid+'" href="'+url+'"> <div><span>正在加载...</span><span type="on" class="voice"><i  onclick="voiceChange(this,\''+guid+'\')"  class="fa fa-volume-up"></i></span><span class="close-tab"></span><i  onclick="closeTab(\''+guid+'\')" class="fa fa-close"></i></div></div>';
+    var tab='<div class="tab float tab-selected"  id="tab_'+guid+'" href="'+url+'"> <div><span onclick="checkDiv(this,\''+guid+'\')" >正在加载...</span><span type="on" class="voice"><i  onclick="voiceChange(this,\''+guid+'\')"  class="fa fa-volume-up"></i></span><span class="close-tab"></span><i  onclick="closeTab(\''+guid+'\')" class="fa fa-close"></i></div></div>';
     $("webview:not(.selected)").hide();
     $("#webList").append(web);
     $("#tabList").append(tab);
@@ -155,22 +155,20 @@ function addWebView(url){
     });
 
     closeTab=function(guid){
-        var selectId=$(".selected").attr("id");
+        var selectedId=$(".tab-selected").attr("id");
         $("#"+guid).remove();
         $("#tab_"+guid).remove();
-        if($(".selected").length<=0){
-            $("webview:last").addClass("selected");
-            $(".tab:last").addClass("tab-selected");
-            $(".selected").show();
-            $(".tab-selected").show();
+        if(selectedId=="tab_"+guid){
+            $(".tab:last").find("span:eq(0)").click();
+        }else{
+            $("#"+selectedId).find("span:eq(0)").click();
         }
+        
     }
 
     checkDiv=function(doc,guid){
-        if(doc.getAttribute("class").indexOf("selected")>=0){
-            return;
-        }
-        $("webview").hide();
+        guid=guid.replace("tab_","");
+        $("webview:not(#"+guid.replace("tab_","")+")").hide();
         $(".tab").removeClass("tab-selected");
         $("webview").removeClass("selected");
         $("#"+guid).addClass("selected").show();

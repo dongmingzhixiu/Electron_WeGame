@@ -1,11 +1,6 @@
 const {ipcMain, app, BrowserWindow } = require('electron');  //此种写反==》ipcMain=require('electron').ipcMain,app=require('electron').app,BrowserWindow=require('electron').BrowserWindow ;即获取对象的属性值
 // let {setUrl,setWebView}=require("./apps/js/setUrl.js");
 
-let win = null;
-let parentWin;
-
-
-
 
 /**
  * 解决浏览器播放问题
@@ -31,17 +26,15 @@ app.commandLine.appendSwitch('ppapi-flash-version', '22.0.0.192');
 
 
 
-
-
-
-
 //在 ready 事件中创建窗体
 app.on("ready", createForm);
 
+let win = null;
 //定义初始化窗口大小
 var initW=1280,initH=830;
 
-function createForm() {
+function createForm() {    
+    openForm();
     win = new BrowserWindow({
         width: initW,   //宽度
         height: initH,  //高度
@@ -57,9 +50,6 @@ function createForm() {
     });
     win.loadURL(__dirname + "/apps/index.html");
     // win.openDevTools();
-    openForm();
-
-    
     win.show();
 }
 
